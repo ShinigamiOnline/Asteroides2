@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center"
+    android:padding="@dimen/margen_botones"
     android:orientation="vertical"
     tools:context="asteroides.example.org.asteroides.MainActivity">
 
