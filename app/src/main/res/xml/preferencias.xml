@@ -8,5 +8,15 @@
         android:summary="Se produce música de fondo"/>
     <ListPreference
         android:key="graficos"
-
+        android:title="Tipo de gráficos"
+        android:summary="Se escoge la representación de gráficos"
+        android:entries="@array/tiposGraficos"
+        android:entryValues="@array/tiposGraficosValores"
+        android:defaultValue="1"/>
+    <EditTextPreference
+        android:key="fragmentos"
+        android:title="Número de fragmentos"
+        android:summary="En cuantos trozos se divide un asteroide"
+        android:inputType="number"
+        android:defaultValue="3"/>
 </PreferenceScreen>

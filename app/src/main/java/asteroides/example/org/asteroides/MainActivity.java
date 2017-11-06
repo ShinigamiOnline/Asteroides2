@@ -6,14 +6,29 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import static android.R.attr.id;
+
 public class MainActivity extends AppCompatActivity {
 
     private Button bAcercaDe;
     private Button bSalir;
 
-    public void lanzarAcercaDe(View view){
+    public void lanzarAcercaDe(View view) {
         Intent i = new Intent(this, Activity_acerda_de.class);
         startActivity(i);
+    }
+
+    public void lanzarPreferencias(View view) {
+        Intent i = new Intent(this, PreferenciasActivity.class);
+        startActivity(i);
+    }
+
+    public boolean onOptionsItemSelected() {
+        if (id == R.id.action_settings) {
+            lanzarPreferencias(null);
+            return true;
+        } else
+            return false;
     }
 
     @Override
@@ -38,5 +53,5 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    }
+}
 
