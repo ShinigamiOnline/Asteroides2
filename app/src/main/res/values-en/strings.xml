@@ -4,7 +4,7 @@
     <string name="Arrancar">Play</string>
     <string name="Configurar">Configuration</string>
     <string name="Acercade">About de</string>
-    <string name="Salir">Exit</string>
+    <string name="Score">Score</string>
     <string name="app_name">Asteroides</string>
     <string name="action_settings">Configuration</string>
 

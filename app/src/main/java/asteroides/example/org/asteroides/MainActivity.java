@@ -11,7 +11,8 @@ import static android.R.attr.id;
 public class MainActivity extends AppCompatActivity {
 
     private Button bAcercaDe;
-    private Button bSalir;
+    private Button bPuntuaciones;
+
 
     public void lanzarAcercaDe(View view) {
         Intent i = new Intent(this, Activity_acerda_de.class);
@@ -30,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
         } else
             return false;
     }
+public static AlmacenPuntuaciones almacen = new AlmacenPuntuacionesArray();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,14 +44,11 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        bSalir = (Button) findViewById(R.id.button3);
-        bSalir.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
-            }
-        });
+        bPuntuaciones = (Button) findViewById(R.id.button3);}
 
+    public void lanzarPuntuaciones(View view) {
+        Intent i = new Intent(this,Puntuaciones.class);
+        startActivity(i);
 
     }
 
