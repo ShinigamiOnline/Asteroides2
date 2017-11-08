@@ -5,9 +5,17 @@
         <item>bitmap</item>
         <item>3D</item>
     </string-array>
-    <string-array name="tiposGraficosValores">
+    <string-array name="tiposValores">
         <item>0</item>
         <item>1</item>
         <item>2</item>
     </string-array>
+
+    <string-array name="modoMultijugador">
+        <item>Bluetooth</item>
+        <item>Wi-Fi</item>
+        <item>Internet</item>
+    </string-array>
+
+
 </resources>

@@ -11,7 +11,7 @@
         android:title="Tipo de gráficos"
         android:summary="Se escoge la representación de gráficos"
         android:entries="@array/tiposGraficos"
-        android:entryValues="@array/tiposGraficosValores"
+        android:entryValues="@array/tiposValores"
         android:defaultValue="1"/>
     <EditTextPreference
         android:key="fragmentos"
@@ -19,4 +19,22 @@
         android:summary="En cuantos trozos se divide un asteroide"
         android:inputType="number"
         android:defaultValue="3"/>
+    <PreferenceCategory android:title="Modo multijugador">
+        <CheckBoxPreference
+            android:key="multijugador"
+            android:title="Activar Multijugador"
+        />
+        <EditTextPreference
+            android:key="jugadores maximos"
+            android:title="Máximo de jugadores"
+            android:inputType="number"
+            />
+        <ListPreference
+            android:key="conexiones"
+            android:title="Tipos de conexión"
+            android:entries="@array/modoMultijugador"
+            android:entryValues="@array/tiposValores"
+            android:defaultValue="2"
+            />
+    </PreferenceCategory>
 </PreferenceScreen>
