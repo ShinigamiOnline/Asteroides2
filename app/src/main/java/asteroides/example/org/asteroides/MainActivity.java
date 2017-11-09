@@ -6,32 +6,20 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-import static android.R.attr.id;
-
 public class MainActivity extends AppCompatActivity {
 
     private Button bAcercaDe;
     private Button bPuntuaciones;
 
-
-    public void lanzarAcercaDe(View view) {
+    public void lanzarAcercaDe(View view){
         Intent i = new Intent(this, Activity_acerda_de.class);
         startActivity(i);
     }
-
-    public void lanzarPreferencias(View view) {
-        Intent i = new Intent(this, PreferenciasActivity.class);
+    public void lanzarPuntuaciones (View view){
+        Intent i = new Intent(this,Puntuaciones.class);
         startActivity(i);
     }
 
-    public boolean onOptionsItemSelected() {
-        if (id == R.id.action_settings) {
-            lanzarPreferencias(null);
-            return true;
-        } else
-            return false;
-    }
-public static AlmacenPuntuaciones almacen = new AlmacenPuntuacionesArray();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,13 +32,16 @@ public static AlmacenPuntuaciones almacen = new AlmacenPuntuacionesArray();
             }
         });
 
-        bPuntuaciones = (Button) findViewById(R.id.button3);}
+        bPuntuaciones = (Button) findViewById(R.id.button3);
+        bPuntuaciones.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                lanzarPuntuaciones(null);
+            }
+        });
 
-    public void lanzarPuntuaciones(View view) {
-        Intent i = new Intent(this,Puntuaciones.class);
-        startActivity(i);
 
     }
 
-}
+    }
 
