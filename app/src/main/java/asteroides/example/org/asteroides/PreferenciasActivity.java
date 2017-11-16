@@ -11,6 +11,6 @@ public class PreferenciasActivity extends Activity {
     @Override
     protected void onCreate (Bundle saveInstanceState){
         super.onCreate(saveInstanceState);
-        getFragmentManager().beginTransaction().replace(android.R.id.content,new PreferencisFragment()).commit();
+        getFragmentManager().beginTransaction().replace(android.R.id.content,new PreferenciasFragment()).commit();
     }
 }

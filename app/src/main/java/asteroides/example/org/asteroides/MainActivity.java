@@ -6,9 +6,11 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import static android.R.attr.id;
+
 public class MainActivity extends AppCompatActivity {
 
-    public static AlmacenPuntuaciones almacen;
+    public static AlmacenPuntuacionesArray almacen = new AlmacenPuntuacionesArray();
     private Button bAcercaDe;
     private Button bPuntuaciones;
 
@@ -20,20 +22,33 @@ public class MainActivity extends AppCompatActivity {
         Intent i = new Intent(this,Puntuaciones.class);
         startActivity(i);
     }
+    public void lanzarPreferencias(View view) {
+        Intent i = new Intent(this, PreferenciasActivity.class);
+        startActivity(i);
+    }
 
+    public boolean onOptionsItemSelected() {
+        if (id == R.id.action_settings) {
+            lanzarPreferencias(null);
+            return true;
+        } else
+            return false;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         bAcercaDe = (Button) findViewById(R.id.button4);
+        bPuntuaciones = (Button) findViewById(R.id.button3);
+
         bAcercaDe.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 lanzarAcercaDe(null);
             }
         });
 
-        bPuntuaciones = (Button) findViewById(R.id.button3);
+
         bPuntuaciones.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

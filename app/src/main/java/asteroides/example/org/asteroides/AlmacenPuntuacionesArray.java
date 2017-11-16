@@ -18,6 +18,7 @@ public class AlmacenPuntuacionesArray implements AlmacenPuntuaciones {
 
     @Override
     public Vector<String> listaPuntuaciones(int cantidad) {
+
         return puntuaciones;
     }
 

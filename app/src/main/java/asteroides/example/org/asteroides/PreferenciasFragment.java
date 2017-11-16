@@ -11,7 +11,7 @@ import android.widget.Toast;
  */
 
 
-public class PreferencisFragment extends PreferenceFragment {
+public class PreferenciasFragment extends PreferenceFragment {
     @Override
     public void onCreate(Bundle saveInstanceState) {
         super.onCreate(saveInstanceState);
