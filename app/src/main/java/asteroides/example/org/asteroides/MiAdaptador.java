@@ -20,14 +20,20 @@ public class MiAdaptador extends RecyclerView.Adapter<MiAdaptador.ViewHolder> {
 
     private LayoutInflater inflador;
     private Vector<String> lista;
+    protected View.OnClickListener onClickListener;
 
     public MiAdaptador(Context context, Vector<String> lista){
         this.lista=lista;
         inflador =(LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
+    public void setOnItemClickListener(View.OnClickListener onClickListener){
+        this.onClickListener = onClickListener;
+    }
+
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType){
         View v = inflador.inflate(R.layout.elemento_lista,parent,false);
+        v.setOnClickListener(onClickListener);
         return  new ViewHolder(v);
 
     }
