@@ -8,6 +8,7 @@ import android.widget.Button;
 
 public class MainActivity extends AppCompatActivity {
 
+    public static AlmacenPuntuaciones almacen;
     private Button bAcercaDe;
     private Button bPuntuaciones;
 
