@@ -16,6 +16,7 @@ public class MainActivity extends AppCompatActivity {
     private Button bPuntuaciones;
 
     public void lanzarAcercaDe(View view){
+
         Intent i = new Intent(this, Activity_acerda_de.class);
         startActivity(i);
     }
@@ -40,6 +41,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        //setBackgroundResource(R.drawable.degradado);
+
         bAcercaDe = (Button) findViewById(R.id.button4);
         bPuntuaciones = (Button) findViewById(R.id.button3);
 
@@ -53,7 +56,9 @@ public class MainActivity extends AppCompatActivity {
         bPuntuaciones.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 lanzarPuntuaciones(null);
+
             }
         });
 
@@ -66,5 +71,6 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
-    }
+
+}
 
