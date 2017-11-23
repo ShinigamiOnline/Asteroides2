@@ -16,7 +16,7 @@ public class VistaJuego extends View {
 
     // //// ASTEROIDES //////
 
-    private Vector Asteroides; // Vector con los Asteroides
+    private Vector<Grafico> Asteroides; // Vector con los Asteroides
 
     private int numAsteroides= 5; // Número inicial de asteroides
 
@@ -31,7 +31,7 @@ public class VistaJuego extends View {
 
         drawableAsteroide = context.getResources().getDrawable(R.drawable.asteroide1);
 
-        Asteroides = new Vector();
+        Asteroides = new Vector<Grafico>();
 
         for (int i = 0; i < numAsteroides; i++) {
 

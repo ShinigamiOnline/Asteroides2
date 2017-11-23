@@ -14,6 +14,7 @@ public class MainActivity extends AppCompatActivity {
     public static AlmacenPuntuacionesArray almacen = new AlmacenPuntuacionesArray();
     private Button bAcercaDe;
     private Button bPuntuaciones;
+    private Button bJugar;
 
     public void lanzarAcercaDe(View view){
 
@@ -26,6 +27,11 @@ public class MainActivity extends AppCompatActivity {
     }
     public void lanzarPreferencias(View view) {
         Intent i = new Intent(this, PreferenciasActivity.class);
+        startActivity(i);
+    }
+
+    public void lanzarJuego(View vista){
+        Intent i = new Intent(this, Juego.class);
         startActivity(i);
     }
 
@@ -45,6 +51,7 @@ public class MainActivity extends AppCompatActivity {
 
         bAcercaDe = (Button) findViewById(R.id.button4);
         bPuntuaciones = (Button) findViewById(R.id.button3);
+        bJugar = (Button) findViewById(R.id.button2);
 
         bAcercaDe.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -54,13 +61,17 @@ public class MainActivity extends AppCompatActivity {
 
 
         bPuntuaciones.setOnClickListener(new View.OnClickListener() {
-            @Override
             public void onClick(View view) {
-
                 lanzarPuntuaciones(null);
 
             }
         });
+        bJugar.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                lanzarJuego(null);
+            }
+        });
+
 
 
     }
