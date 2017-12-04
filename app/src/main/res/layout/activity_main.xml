@@ -20,9 +20,8 @@
         android:id="@+id/button2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/Jugar"
         android:onClick="lanzarJuego"
-        />
+        android:text="@string/Jugar" />
 
     <Button
         android:id="@+id/button"
