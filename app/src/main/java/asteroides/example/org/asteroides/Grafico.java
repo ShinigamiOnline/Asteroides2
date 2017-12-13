@@ -131,4 +131,16 @@ public class Grafico {
     public void setPosX(double posX) {
         this.posX = posX;
     }
+
+    public double getAngulo() {
+        return  angulo;
+    }
+
+    public double getIncX() {
+        return incX;
+    }
+
+    public double getIncY() {
+        return incY;
+    }
 }
