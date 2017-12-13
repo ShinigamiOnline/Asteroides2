@@ -84,8 +84,10 @@ public class VistaJuego extends View {
 
             asteroide.setPosY(Math.random()*
                     (alto-asteroide.getAlto()));
-
         }
+
+        ultimoProceso = System.currentTimeMillis();
+        thread.start();
 
     }
 
