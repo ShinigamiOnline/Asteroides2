@@ -13,6 +13,7 @@ import java.util.Vector;
  */
 
 public class VistaJuego extends View {
+    private static final double MAX_VELOCIDAD_NAVE =80 ;
 
     // THREAD Y TIEMPO
     // Thread encargado de procesar el juego
@@ -86,6 +87,11 @@ public class VistaJuego extends View {
                     (alto-asteroide.getAlto()));
         }
 
+        nave.setPosX(this.getWidth()/2);
+        nave.setPosY(this.getHeight()/2);
+
+
+
         ultimoProceso = System.currentTimeMillis();
         thread.start();
 
@@ -96,11 +102,9 @@ public class VistaJuego extends View {
         super.onDraw(canvas);
 
         for (Grafico asteroide: asteroides) {
-
             asteroide.dibujaGrafico(canvas);
-
         }
-
+        nave.dibujaGrafico(canvas);
     }
 
 
@@ -130,7 +134,15 @@ public class VistaJuego extends View {
 
 
     }
+    public class ThreadJuego extends Thread {
+        @Override
+        public void run(){
+            while (true){
+                actualizaFisica();
+            }
+        }
 
+    }
 
 
 
