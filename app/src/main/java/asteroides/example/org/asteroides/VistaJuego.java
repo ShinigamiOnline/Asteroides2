@@ -23,7 +23,7 @@ import java.util.Vector;
  */
 
 public class VistaJuego extends View {
-    private static final double MAX_VELOCIDAD_NAVE = 80;
+    private static final double MAX_VELOCIDAD_NAVE = 50;
 
     // THREAD Y TIEMPO
     // Thread encargado de procesar el juego
@@ -36,8 +36,8 @@ public class VistaJuego extends View {
 
     // //// NAVE //////
     private Grafico nave; // Gráfico de la nave
-    private int giroNave; // Incremento de dirección
-    private float aceleracionNave; // aumento de velocidad
+    private int giroNave = 2; // Incremento de dirección
+    private float aceleracionNave = 2; // aumento de velocidad
     // Incremento estándar de giro y aceleración
     private static final int PASO_GIRO_NAVE = 5;
     private static final float PASO_ACELERACION_NAVE = 0.5f;
