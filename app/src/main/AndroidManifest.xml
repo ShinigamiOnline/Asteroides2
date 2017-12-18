@@ -21,7 +21,9 @@
             android:label="Acerca de ..."/>
         <activity android:name=".PreferenciasActivity"/>
         <activity android:name=".Puntuaciones"/>
-        <activity android:name=".Juego"/>
+        <activity android:name=".Juego"
+            android:screenOrientation="landscape"
+            />
     </application>
 
 </manifest>
