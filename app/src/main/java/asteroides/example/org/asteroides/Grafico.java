@@ -10,84 +10,70 @@ import android.view.View;
 
 public class Grafico {
     private Drawable drawable;   //Imagen que dibujaremos
-
-    private double posX, posY;   //Posición
-
-    private double incX, incY;   //Velocidad desplazamiento
-
-    private int angulo, rotacion;//Ángulo y velocidad rotación
-
+    private int cenX, cenY;   //Posición
     private int ancho, alto;     //Dimensiones de la imagen
-
+    private double incX,incY;
+    private double angulo,rotacion;
     private int radioColision;   //Para determinar colisión
-
-    //Donde dibujamos el gráfico (usada en view.ivalidate)
-
+    private int xAnterior,yAnterior;
+    private int radioInval;
     private View view;
 
     // Para determinar el espacio a borrar (view.ivalidate)
-
     public static final int MAX_VELOCIDAD = 20;
 
     public Grafico(View view, Drawable drawable){
 
         this.view = view;
-
         this.drawable = drawable;
-
         ancho = drawable.getIntrinsicWidth();
-
         alto = drawable.getIntrinsicHeight();
-
         radioColision = (alto+ancho)/4;
+        radioInval =(int)Math.hypot(ancho/2,alto/2);
 
     }
     public void dibujaGrafico(Canvas canvas){
 
+        int x=cenX-ancho/2;
+
+        int y=cenY - alto/2;
+        drawable.setBounds(x,y,x+ancho,y+alto);
         canvas.save();
-
-        int x=(int) (posX+ancho/2);
-
-        int y=(int) (posY+alto/2);
-
-        canvas.rotate((float) angulo,(float) x,(float) y);
-
-        drawable.setBounds((int)posX, (int)posY,
-                (int)posX+ancho, (int)posY+alto);
-
+        canvas.rotate((float) angulo,cenX,cenY);
         drawable.draw(canvas);
-
         canvas.restore();
-
-        int rInval = (int) Math.hypot(ancho,alto)/2 + MAX_VELOCIDAD;
-
-        view.invalidate(x-rInval, y-rInval, x+rInval, y+rInval);
-
+        view.invalidate(cenX-radioInval,cenY-radioInval,cenX+radioInval,cenY+radioInval);
+        view.invalidate(xAnterior-radioInval,yAnterior-radioInval,xAnterior+radioInval,yAnterior+radioInval);
+        xAnterior = cenX;
+        yAnterior = cenY;
     }
 
     public void incrementaPos(double factor){
 
-        posX+=incX * factor;
+        cenX+=cenX * factor;
+        cenY+=cenY * factor;
+        angulo += rotacion * factor; //Actualizamos ángulo
 
         // Si salimos de la pantalla, corregimos posición
 
-        if(posX<-ancho/2) {posX=view.getWidth()-ancho/2;}
+        if(cenX<0)
+            cenX=view.getWidth();
 
-        if(posX>view.getWidth()-ancho/2) {posX=-ancho/2;}
+        if(cenX<view.getWidth())
+            cenX=0;
 
-        posY+=incY * factor;
+        if(cenY < 0)
+            cenY = view.getHeight();
 
-        if(posY<-alto/2) {posY=view.getHeight()-alto/2;}
+        if(cenY>view.getHeight())
+            cenY =0;
 
-        if(posY>view.getHeight()-alto/2) {posY=-alto/2;}
-
-        angulo += rotacion * factor; //Actualizamos ángulo
 
     }
 
     public double distancia(Grafico g) {
 
-        return Math.hypot(posX-g.posX, posY-g.posY);
+        return Math.hypot(cenX-g.cenX, cenY-g.cenY);
 
     }
 
@@ -124,14 +110,6 @@ public class Grafico {
         return alto;
     }
 
-    public void setPosY(double posY) {
-        this.posY = posY;
-    }
-
-    public void setPosX(double posX) {
-        this.posX = posX;
-    }
-
     public double getAngulo() {
         return  angulo;
     }
@@ -143,4 +121,30 @@ public class Grafico {
     public double getIncY() {
         return incY;
     }
+
+    public Object getCenX() {
+        return cenX;
+    }
+
+
+    public Object getCenY() {
+        return cenY;
+    }
+
+    public void setCenX(int cenX) {
+        this.cenX = cenX;
+    }
+
+    public void setCenY(int cenY) {
+        this.cenY = cenY;
+    }
+
+    public void setAncho(int ancho) {
+        this.ancho = ancho;
+    }
+
+    public void setAlto(int alto) {
+        this.alto = alto;
+    }
+
 }
