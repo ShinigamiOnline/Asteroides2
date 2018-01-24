@@ -14,6 +14,9 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.media.AudioManager;
+import android.media.MediaPlayer;
+import android.media.SoundPool;
 import android.preference.PreferenceManager;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
@@ -67,6 +70,13 @@ public class VistaJuego extends View implements SensorEventListener {
     private boolean misilActivo = false;
 
     private int tiempoMisil;
+
+    //SONIDOS
+    //private MediaPlayer mpDisparo, mpExplosion;
+    private SoundPool soundPool;
+    private int idDisparo,idExplosion;
+
+
     //-------- 5.42
 
     public VistaJuego(Context context, AttributeSet attrs) {
@@ -151,8 +161,13 @@ public class VistaJuego extends View implements SensorEventListener {
             mSensorManager.registerListener(this, orientationSensor, SensorManager.SENSOR_DELAY_GAME);
 
         }
+        //mpDisparo = MediaPlayer.create(context, R.raw.disparo);
+       // mpExplosion = MediaPlayer.create(context, R.raw.explosion);
+        soundPool = new SoundPool( 5, AudioManager.STREAM_MUSIC , 0);
 
+        idDisparo = soundPool.load(context, R.raw.disparo, 0);
 
+        idExplosion = soundPool.load(context, R.raw.explosion, 0);
     }
 
     @Override
@@ -294,20 +309,13 @@ public class VistaJuego extends View implements SensorEventListener {
         giroNave = (int) (valor - valorInicial) / 3;
     }
 
-
-    public class ThreadJuego extends Thread {
-        @Override
-        public void run() {
-            while (true) {
-                actualizaFisica();
-            }
-        }
-    }
-
     private void destruyeAsteroide(int i) {
 
         asteroides.remove(i);
         misilActivo = false;
+
+        //mpExplosion.start();
+        soundPool.play(idExplosion,1,1,0,0,1);
     }
 
     private void ActivaMisil() {
@@ -320,7 +328,46 @@ public class VistaJuego extends View implements SensorEventListener {
         tiempoMisil = (int) Math.min(this.getWidth() / Math.abs(misil.getIncX()), this.getHeight() / Math.abs(misil.getIncY())) - 2;
         misilActivo = true;
 
+        //mpDisparo.start();
+        soundPool.play(idDisparo,1,1,1,0,1);
+
     }
 
+    public ThreadJuego getThread() {
+        return thread;
+    }
 
+    class ThreadJuego extends Thread {
+        private boolean pausa,corriendo;
+
+        public synchronized void pausar() {
+            pausa = true;
+        }
+
+        public synchronized void reanudar() {
+            pausa = false;
+            notify();
+        }
+
+        public void detener() {
+            corriendo = false;
+            if (pausa) reanudar();
+        }
+
+        @Override public void run() {
+            corriendo = true;
+            while (corriendo) {
+                actualizaFisica();
+                synchronized (this) {
+                    while (pausa)
+                        try {
+                            wait();
+                        } catch (Exception e) {
+                        }
+                }
+            }
+        }
+    }
 }
+
+
