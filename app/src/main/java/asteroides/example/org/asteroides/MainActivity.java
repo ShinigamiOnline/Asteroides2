@@ -1,6 +1,7 @@
 package asteroides.example.org.asteroides;
 
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -15,6 +16,7 @@ public class MainActivity extends AppCompatActivity {
     private Button bAcercaDe;
     private Button bPuntuaciones;
     private Button bJugar;
+    private MediaPlayer mp;
 
     public void lanzarAcercaDe(View view){
 
@@ -71,6 +73,9 @@ public class MainActivity extends AppCompatActivity {
                 lanzarJuego(null);
             }
         });
+
+        mp = MediaPlayer.create(this,R.raw.audio);
+        mp.start();
 
 
 

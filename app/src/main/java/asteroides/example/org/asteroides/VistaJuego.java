@@ -62,14 +62,9 @@ public class VistaJuego extends View implements SensorEventListener {
     private boolean disparo = false;
 
     ////MISIL////////
-    private Grafico misil;
-    private Vector<Grafico> misiles; // Vector con los misiles.
-
     private static int PASO_VELOCIDAD_MISIL = 12;
-
-    private boolean misilActivo = false;
-
-    private int tiempoMisil;
+    private Vector<Grafico> misiles; // Vector con los misiles.
+    private Vector<Integer> tiempoMisiles;
 
     //SONIDOS
     //private MediaPlayer mpDisparo, mpExplosion;
@@ -139,7 +134,7 @@ public class VistaJuego extends View implements SensorEventListener {
 
         asteroides = new Vector<Grafico>();
         nave = new Grafico(this, drawableNave);
-        misil = new Grafico(this, drawableMisil);
+        misiles = new Vector<Grafico>();
 
 
         for (int i = 0; i < numAsteroides; i++) {
@@ -164,9 +159,7 @@ public class VistaJuego extends View implements SensorEventListener {
         //mpDisparo = MediaPlayer.create(context, R.raw.disparo);
        // mpExplosion = MediaPlayer.create(context, R.raw.explosion);
         soundPool = new SoundPool( 5, AudioManager.STREAM_MUSIC , 0);
-
         idDisparo = soundPool.load(context, R.raw.disparo, 0);
-
         idExplosion = soundPool.load(context, R.raw.explosion, 0);
     }
 
@@ -204,8 +197,9 @@ public class VistaJuego extends View implements SensorEventListener {
         }
         nave.dibujaGrafico(canvas);
 
-        if (misilActivo) {
+        for(Grafico misil : misiles){
             misil.dibujaGrafico(canvas);
+
         }
 
     }
@@ -235,21 +229,12 @@ public class VistaJuego extends View implements SensorEventListener {
             asteroide.incrementaPos(factorMov);
         }
 
-        // Actualizamos posición de misil
+         for (Grafico misil : misiles){
+             misil.incrementaPos(factorMov);
+             tiempoMisiles.set(m,tiempoMisiles.get(m)-factorMov);
+         }
 
-        if (misilActivo) {
-            misil.incrementaPos(factorMov);
-            tiempoMisil -= factorMov;
-            if (tiempoMisil < 0) {
-                misilActivo = false;
-            } else {
-                for (int i = 0; i < asteroides.size(); i++)
-                    if (misil.verificaColision(asteroides.elementAt(i))) {
-                        destruyeAsteroide(i);
-                        break;
-                    }
-            }
-        }
+
     }
 
     @Override
