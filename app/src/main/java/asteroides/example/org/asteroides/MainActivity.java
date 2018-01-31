@@ -9,20 +9,23 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import static android.R.attr.actionLayout;
 import static android.R.attr.id;
 
 public class MainActivity extends AppCompatActivity {
 
-    public static AlmacenPuntuacionesArray almacen = new AlmacenPuntuacionesArray();
+    public static AlmacenPuntuacionesPreferencias almacen;
     private Button bAcercaDe;
     private Button bPuntuaciones;
     private Button bJugar;
     private MediaPlayer mp;
 
+    static final int ACTIV_JUEGO = 0;
+
     public void lanzarAcercaDe(View view){
 
         Intent i = new Intent(this, Activity_acerda_de.class);
-        startActivity(i);
+        startActivityForResult(i,ACTIV_JUEGO);
     }
     public void lanzarPuntuaciones (View view){
         Intent i = new Intent(this,Puntuaciones.class);
@@ -80,6 +83,8 @@ public class MainActivity extends AppCompatActivity {
 
         Toast.makeText(this, "onCreate", Toast.LENGTH_SHORT).show();
 
+        almacen = new AlmacenPuntuacionesPreferencias(this);
+
     }
 
     @Override
@@ -117,5 +122,17 @@ public class MainActivity extends AppCompatActivity {
         super.onDestroy();
     }
 
+    @Override protected void onActivityResult(int requestCode, int resultCode, Intent data){
+        super.onActivityResult(requestCode, resultCode,data);
+        if(requestCode == ACTIV_JUEGO && resultCode == RESULT_OK && data != null){
+            int puntuacion = data.getExtras().getInt("puntuacion");
+            String nombre = "Yo";
+            //Mejor leer nombre desde un AlertDialog.Builder o preferencias
+            almacen.guardarPuntuacion(puntuacion,nombre,System.currentTimeMillis());
+            lanzarPuntuaciones(null);
+        }
+
+
+    }
 }
 

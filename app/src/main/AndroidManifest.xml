@@ -10,7 +10,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.DarkActionBar">
         <activity android:name=".MainActivity">
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -22,8 +21,7 @@
         <activity android:name=".PreferenciasActivity"/>
         <activity android:name=".Puntuaciones"/>
         <activity android:name=".Juego"
-            android:screenOrientation="landscape"
-            />
+            android:screenOrientation="landscape" />
     </application>
 
 </manifest>

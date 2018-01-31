@@ -1,6 +1,8 @@
 package asteroides.example.org.asteroides;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -17,6 +19,7 @@ import android.hardware.SensorManager;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.media.SoundPool;
+import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
@@ -46,7 +49,7 @@ public class VistaJuego extends View implements SensorEventListener {
     private int giroNave = 2; // Incremento de dirección
     private float aceleracionNave = 2; // aumento de velocidad
     // Incremento estándar de giro y aceleración
-    private static final int PASO_GIRO_NAVE = 5;
+    private static final int PASO_GIRO_NAVE = 2;
     private static final float PASO_ACELERACION_NAVE = 0.5f;
 
     // //// ASTEROIDES //////
@@ -75,6 +78,10 @@ public class VistaJuego extends View implements SensorEventListener {
     //private MediaPlayer mpDisparo, mpExplosion;
     private SoundPool soundPool;
     private int idDisparo,idExplosion;
+
+    // Puntuación
+    private int puntuacion = 0;
+    private Activity padre;
 
 
     //-------- 5.42
@@ -244,6 +251,7 @@ public class VistaJuego extends View implements SensorEventListener {
                 for (int i = 0; i < asteroides.size(); i++)
                     if (misil.verificaColision(asteroides.elementAt(i))) {
                         destruyeAsteroide(i);
+
                         break;
                     }
             }
@@ -311,9 +319,13 @@ public class VistaJuego extends View implements SensorEventListener {
 
         asteroides.remove(i);
         misilActivo = false;
-
         //mpExplosion.start();
         soundPool.play(idExplosion,1,1,0,0,1);
+        puntuacion += 1000;
+        if(asteroides.isEmpty()){
+            salir();
+        }
+
     }
 
     private void ActivaMisil() {
@@ -366,6 +378,22 @@ public class VistaJuego extends View implements SensorEventListener {
             }
         }
     }
+
+    public  void setPadre(Activity padre){
+        this.padre = padre;
+    }
+
+    private void salir(){
+        Bundle bundle = new Bundle();
+        bundle.putInt("puntuación",puntuacion);
+        Intent intent = new Intent();
+        intent.putExtras(bundle);
+        padre.setResult(Activity.RESULT_OK,intent);
+        padre.finish();
+
+    }
+
+
 }
 
 
