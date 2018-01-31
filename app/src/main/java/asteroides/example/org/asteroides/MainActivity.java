@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import static android.R.attr.id;
 
@@ -77,7 +78,7 @@ public class MainActivity extends AppCompatActivity {
         mp = MediaPlayer.create(this,R.raw.audio);
         mp.start();
 
-
+        Toast.makeText(this, "onCreate", Toast.LENGTH_SHORT).show();
 
     }
 
@@ -86,7 +87,35 @@ public class MainActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
+    @Override protected void onStart() {
+        super.onStart();
+        Toast.makeText(this, "onStart", Toast.LENGTH_SHORT).show();
+    }
 
+    @Override protected void onResume() {
+        super.onResume();
+        Toast.makeText(this, "onResume", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override protected void onPause() {
+        Toast.makeText(this, "onPause", Toast.LENGTH_SHORT).show();
+        super.onPause();
+    }
+
+    @Override protected void onStop() {
+        Toast.makeText(this, "onStop", Toast.LENGTH_SHORT).show();
+        super.onStop();
+    }
+
+    @Override protected void onRestart() {
+        super.onRestart();
+        Toast.makeText(this, "onRestart", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override protected void onDestroy() {
+        Toast.makeText(this, "onDestroy", Toast.LENGTH_SHORT).show();
+        super.onDestroy();
+    }
 
 }
 

@@ -62,9 +62,14 @@ public class VistaJuego extends View implements SensorEventListener {
     private boolean disparo = false;
 
     ////MISIL////////
-    private static int PASO_VELOCIDAD_MISIL = 12;
+    private Grafico misil;
     private Vector<Grafico> misiles; // Vector con los misiles.
-    private Vector<Integer> tiempoMisiles;
+
+    private static int PASO_VELOCIDAD_MISIL = 12;
+
+    private boolean misilActivo = false;
+
+    private int tiempoMisil;
 
     //SONIDOS
     //private MediaPlayer mpDisparo, mpExplosion;
@@ -134,7 +139,7 @@ public class VistaJuego extends View implements SensorEventListener {
 
         asteroides = new Vector<Grafico>();
         nave = new Grafico(this, drawableNave);
-        misiles = new Vector<Grafico>();
+        misil = new Grafico(this, drawableMisil);
 
 
         for (int i = 0; i < numAsteroides; i++) {
@@ -197,9 +202,8 @@ public class VistaJuego extends View implements SensorEventListener {
         }
         nave.dibujaGrafico(canvas);
 
-        for(Grafico misil : misiles){
+        if (misilActivo) {
             misil.dibujaGrafico(canvas);
-
         }
 
     }
@@ -229,12 +233,21 @@ public class VistaJuego extends View implements SensorEventListener {
             asteroide.incrementaPos(factorMov);
         }
 
-         for (Grafico misil : misiles){
-             misil.incrementaPos(factorMov);
-             tiempoMisiles.set(m,tiempoMisiles.get(m)-factorMov);
-         }
+        // Actualizamos posición de misil
 
-
+        if (misilActivo) {
+            misil.incrementaPos(factorMov);
+            tiempoMisil -= factorMov;
+            if (tiempoMisil < 0) {
+                misilActivo = false;
+            } else {
+                for (int i = 0; i < asteroides.size(); i++)
+                    if (misil.verificaColision(asteroides.elementAt(i))) {
+                        destruyeAsteroide(i);
+                        break;
+                    }
+            }
+        }
     }
 
     @Override
