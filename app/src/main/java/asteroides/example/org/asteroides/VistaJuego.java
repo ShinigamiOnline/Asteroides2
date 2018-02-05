@@ -82,6 +82,8 @@ public class VistaJuego extends View implements SensorEventListener {
     // Puntuación
     private int puntuacion = 0;
     private Activity padre;
+    //fragmentando los asteroides.
+    private Drawable drawableAsteroide[] = new Drawable[3];
 
 
     //-------- 5.42
@@ -89,9 +91,7 @@ public class VistaJuego extends View implements SensorEventListener {
     public VistaJuego(Context context, AttributeSet attrs) {
         super(context, attrs);
 
-        Drawable drawableNave, drawableAsteroide, drawableMisil = null;
-
-       // drawableAsteroide = context.getResources().getDrawable(R.drawable.asteroide1);
+        Drawable drawableNave, drawableMisil = null;
 
         SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(getContext());
         if(pref.getString("graficos","1").equals("0")) {
@@ -108,12 +108,15 @@ public class VistaJuego extends View implements SensorEventListener {
             pathAteroide.lineTo((float) 0.0, (float) 0.2);
             pathAteroide.lineTo((float) 0.3, (float) 0.0);
 
-            ShapeDrawable dAsteroide = new ShapeDrawable(new PathShape(pathAteroide, 1, 1));
-            dAsteroide.getPaint().setColor(Color.WHITE);
-            dAsteroide.getPaint().setStyle(Paint.Style.STROKE);
-            dAsteroide.setIntrinsicWidth(50);
-            dAsteroide.setIntrinsicHeight(50);
-            drawableAsteroide = dAsteroide;
+            for (int i = 0; i < 3;i++){
+                ShapeDrawable dAsteroide = new ShapeDrawable(new PathShape(pathAteroide, 1, 1));
+
+                dAsteroide.getPaint().setColor(Color.WHITE);
+                dAsteroide.getPaint().setStyle(Paint.Style.STROKE);
+                dAsteroide.setIntrinsicWidth(50 - i * 14);
+                dAsteroide.setIntrinsicHeight(50 - i * 14);
+                drawableAsteroide[i] = dAsteroide;
+            }
             setBackgroundColor(Color.BLACK);
             setLayerType(View.LAYER_TYPE_SOFTWARE,null);
 
@@ -138,7 +141,9 @@ public class VistaJuego extends View implements SensorEventListener {
             drawableMisil = dMisil;
 
         }else{
-            drawableAsteroide = context.getResources().getDrawable(R.drawable.asteroide1);
+            drawableAsteroide[0] = context.getResources().getDrawable(R.drawable.asteroide1);
+            drawableAsteroide[1] = context.getResources().getDrawable(R.drawable.asteroide2);
+            drawableAsteroide[2] = context.getResources().getDrawable(R.drawable.asteroide3);
             setLayerType(View.LAYER_TYPE_HARDWARE,null);
             drawableNave = context.getResources().getDrawable(R.drawable.nave);
             drawableMisil = context.getResources().getDrawable(R.drawable.misil1);
@@ -315,7 +320,26 @@ public class VistaJuego extends View implements SensorEventListener {
         giroNave = (int) (valor - valorInicial) / 3;
     }
 
+    int tam;
     private void destruyeAsteroide(int i) {
+
+        if(asteroides.get(i).getDrawable()!= drawableAsteroide[2]){
+            if(asteroides.get(i).getDrawable() == drawableAsteroide[1]) {
+                tam = 2;
+            }else{
+                tam = 1;
+            }
+            for (int  n = 0;n< numFragmentos; n++){
+                Grafico asteroide = new Grafico(this,drawableAsteroide[tam]);
+                asteroide.setPosX(asteroides.get(i).getPosX());
+                asteroide.setPosY(asteroides.get(i).getPosY());
+                asteroide.setIncX(Math.random()*7 - 2 - tam);
+                asteroide.setIncY(Math.random()*7 - 2 - tam);
+                asteroide.setAngulo((int) (Math.random()*360));
+                asteroide.setRotacion((int)(Math.random()*8-4));
+                asteroides.add(asteroide);
+            }
+        }
 
         asteroides.remove(i);
         misilActivo = false;

@@ -14,7 +14,7 @@ import static android.R.attr.id;
 
 public class MainActivity extends AppCompatActivity {
 
-    public static AlmacenPuntuacionesPreferencias almacen;
+    public  AlmacenPuntuacionesPreferencias almacen;
     private Button bAcercaDe;
     private Button bPuntuaciones;
     private Button bJugar;

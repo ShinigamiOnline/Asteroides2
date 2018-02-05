@@ -42,6 +42,9 @@ public class Grafico {
         radioColision = (alto+ancho)/4;
 
     }
+
+
+
     public void dibujaGrafico(Canvas canvas){
 
         canvas.save();
@@ -150,5 +153,9 @@ public class Grafico {
 
     public double getPosY() {
         return posY;
+    }
+
+    public Drawable getDrawable() {
+        return drawable;
     }
 }
