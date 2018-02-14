@@ -155,8 +155,8 @@ public class VistaJuego extends View implements SensorEventListener {
 
 
         for (int i = 0; i < numAsteroides; i++) {
-            Grafico asteroide = new Grafico(this, drawableAsteroide);
-
+            Drawable drawaa = context.getResources().getDrawable(R.drawable.asteroide1);
+            Grafico asteroide = new Grafico(this, drawaa);
             asteroide.setIncY(Math.random() * 4 - 2);
             asteroide.setIncX(Math.random() * 4 - 2);
             asteroide.setAngulo((int) (Math.random() * 360));
