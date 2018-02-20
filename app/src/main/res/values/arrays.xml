@@ -17,5 +17,17 @@
         <item>Internet</item>
     </string-array>
 
+    <string-array name="TiposDeAlmacenamiento">
+        <item>Array</item>
+        <item>Preferencias</item>
+        <item>Fichero Interno</item>
+        <item>SQLite</item>
+    </string-array>
+    <string-array name="ValoresAlmacenamiento">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+    </string-array>
 
 </resources>

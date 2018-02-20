@@ -1,7 +1,9 @@
 package asteroides.example.org.asteroides;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.media.MediaPlayer;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -14,7 +16,7 @@ import static android.R.attr.id;
 
 public class MainActivity extends AppCompatActivity {
 
-    public static AlmacenPuntuacionesPreferencias almacen;
+    public static AlmacenPuntuaciones almacen;
     private Button bAcercaDe;
     private Button bPuntuaciones;
     private Button bJugar;
@@ -83,8 +85,18 @@ public class MainActivity extends AppCompatActivity {
 
         Toast.makeText(this, "onCreate", Toast.LENGTH_SHORT).show();
 
-        almacen = new AlmacenPuntuacionesPreferencias(this);
-
+        //Según el tipo elegido guardaremos las puntuaciones de forma diferente.
+        SharedPreferences preferencias =  PreferenceManager.getDefaultSharedPreferences(this);
+        switch (preferencias.getString("TiposDeAlmacenamiento","1")){
+            case "0" :
+                almacen = new AlmacenPuntuacionesArray();
+            case "1"  :
+                almacen = new AlmacenPuntuacionesPreferencias(this);
+            case "2" :
+                almacen = new AlmacenPuntuacionesFicheroInterno(this);
+            case "3"  :
+                almacen = new AlmacenPuntuacionesSQLite(this);
+        }
     }
 
     @Override
