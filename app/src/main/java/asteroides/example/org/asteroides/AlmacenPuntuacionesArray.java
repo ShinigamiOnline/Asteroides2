@@ -10,6 +10,8 @@ public class AlmacenPuntuacionesArray implements AlmacenPuntuaciones {
         puntuaciones.add("123000 Pepito Dominguez");
         puntuaciones.add("111000 Pedro Martinez");
         puntuaciones.add("011000 Paco Pérez");
+        puntuaciones.add("011000 Jorge Quinteros");
+
     }
     @Override
     public void guardarPuntuacion(int puntos,String nombre,long fecha){
